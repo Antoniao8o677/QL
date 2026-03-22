@@ -3,221 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>希希 & 阮阮 的浪漫小屋 ✨</title>
+    <title>我们的浪漫动态小屋 ✨</title>
     <style>
-        /* 定义全局颜色：柔和粉色系 */
         :root {
-            --bg-color-start: #FFF0F5; /* 薰衣草红/少女粉 */
-            --bg-color-end: #FFFFFF;
-            --main-text-color: #8B4513; /* 柔和的深咖啡色，比纯黑更温馨 */
-            --accent-pink: #FF69B4; /* 热情的粉红 */
-            --sub-pink: #FFB6C1; /* 浅粉红 */
-            --card-shadow: 0 15px 35px rgba(255,182,193,0.3); /* 粉色系的柔和阴影 */
+            --bg-pink: #FFF0F5;
+            --accent-pink: #FF69B4;
+            --sub-pink: #FFB6C1;
+            --text-brown: #8B4513;
         }
-
         body {
-            background: linear-gradient(135deg, var(--bg-color-start) 0%, var(--bg-color-end) 100%);
-            margin: 0;
-            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            color: var(--main-text-color);
-            padding-bottom: 50px;
+            background: linear-gradient(135deg, var(--bg-pink) 0%, #ffffff 100%);
+            margin: 0; font-family: "Microsoft YaHei", sans-serif;
+            display: flex; flex-direction: column; align-items: center; padding-bottom: 50px;
         }
-
-        /* 统一的卡片质感设置 */
         .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 30px;
-            backdrop-filter: blur(10px); /* 磨砂玻璃效果 */
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            box-shadow: var(--card-shadow);
-            width: 90%;
-            max-width: 650px;
-            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.9); border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(255,182,193,0.3);
+            width: 90%; max-width: 600px; padding: 30px; margin-top: 30px;
         }
-
-        /* 1. 顶部纪念日卡片 */
-        .header-card {
-            margin-top: 60px;
-            padding: 40px;
-            text-align: center;
-        }
-        h1 {
-            color: var(--accent-pink);
-            font-size: 32px;
-            margin: 0 0 15px 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-        }
-        .heart-icon { color: var(--accent-pink); animation: heartBeat 1.3s infinite; display: inline-block; }
-        @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-
-        /* 恋爱计时器美化 */
-        .timer-box { margin: 25px 0; padding: 15px; background: rgba(255, 105, 180, 0.05); border-radius: 20px;}
-        .timer-prefix { font-size: 16px; color: #999; }
-        .timer-days { font-size: 64px; color: var(--accent-pink); font-weight: bold; font-family: 'Arial', sans-serif; line-height: 1; }
-        .timer-suffix { font-size: 20px; color: var(--sub-pink); margin-left: 5px;}
-
-        /* 2. 唯美恋爱相册区 */
-        .album-section {
-            margin-top: 40px;
-            width: 90%;
-            max-width: 650px;
-        }
-        .section-title {
-            color: var(--accent-pink);
-            font-size: 22px;
-            margin-bottom: 20px;
-            padding-left: 10px;
-            border-left: 5px solid var(--accent-pink);
-        }
+        h1 { color: var(--accent-pink); text-align: center; }
         
-        /* 相册瀑布流布局 */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-        }
-        .photo-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: 0.4s ease-in-out;
-            cursor: pointer;
-        }
-        /* 鼠标悬停照片时的唯美动效 */
-        .photo-item:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 15px 30px rgba(255,105,180,0.2);
-        }
-        .photo-item img {
-            width: 100%;
-            height: 200px; /* 统一高度，更整齐 */
-            object-fit: cover; /* 自动裁剪，保证不变形 */
-            display: block;
-        }
-        /* 照片上的唯美文字遮罩 */
-        .photo-desc {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
-            color: white;
-            padding: 10px 15px;
-            font-size: 14px;
-            opacity: 0;
-            transition: 0.3s;
-        }
-        .photo-item:hover .photo-desc { opacity: 1; }
+        /* 纪念日编辑区 */
+        .timer-section { text-align: center; cursor: pointer; }
+        .timer-days { font-size: 60px; color: var(--accent-pink); font-weight: bold; }
+        #date-input { display: none; margin-top: 10px; border: 1px solid var(--sub-pink); border-radius: 10px; padding: 5px; }
 
-        /* 3. 浪漫瞬间记录区 */
-        .records-section { margin-top: 40px; width: 90%; max-width: 650px; }
-        .record-card { padding: 30px; }
-        .record-item {
-            background: rgba(255, 182, 193, 0.08);
-            padding: 18px 25px;
-            border-radius: 18px;
-            margin-bottom: 18px;
-            border-left: 6px solid var(--sub-pink);
-            transition: 0.3s;
+        /* 手账输入区 */
+        .input-group { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        textarea { border: 1px solid var(--sub-pink); border-radius: 15px; padding: 15px; resize: none; height: 80px; }
+        .save-btn { 
+            background: var(--accent-pink); color: white; border: none; 
+            padding: 10px; border-radius: 20px; cursor: pointer; transition: 0.3s;
         }
-        .record-item:hover { background: rgba(255, 182, 193, 0.15); transform: translateX(5px); }
-        .date-tag { font-size: 13px; color: #999; margin-bottom: 5px; font-weight: bold;}
-        .content-text { color: #666; font-size: 15px; line-height: 1.6;}
+        .save-btn:hover { background: var(--sub-pink); }
 
-        /* 自定义 AI 小助手样式（使其更融入粉色系） */
-        #coze-chat-sdk-iframe {
-            border: none !important;
-            border-radius: 20px !important;
-            box-shadow: var(--card-shadow) !important;
+        /* 记录显示区 */
+        .record-list { margin-top: 20px; }
+        .record-item { 
+            background: #fff; border-left: 5px solid var(--sub-pink); 
+            padding: 15px; border-radius: 10px; margin-bottom: 10px; position: relative;
         }
+        .record-date { font-size: 12px; color: #999; }
+        .delete-btn { position: absolute; right: 10px; top: 10px; color: #ccc; cursor: pointer; font-size: 12px; }
     </style>
 </head>
 <body>
 
-    <div class="header-card glass-card">
-        <h1>希希 & 阮阮 的小屋 <span class="heart-icon">❤</span></h1>
-        <div class="timer-box">
-            <div class="timer-prefix">我们已经在一起</div>
-            <span class="timer-days" id="love-timer">***</span>
-            <span class="timer-suffix">天啦</span>
-        </div>
-        <p style="color: #999; font-style: italic; font-size: 14px;">“是你，是你，身后的青春都是你”</p>
-    </div>
-
-    <div class="album-section">
-        <h2 class="section-title">📷 恋爱纪念册</h2>
-        <div class="photo-grid">
-            <div class="photo-item">
-                <img src="https://lf-cdn.coze.cn/obj/coze-web-sdk/101/favicon.ico" alt="第一次见面">
-                <div class="photo-desc">202xx.01.01 第一次见面，心动的一瞬间</div>
-            </div>
-            <div class="photo-item">
-                <img src="https://lf-cdn.coze.cn/obj/coze-web-sdk/101/favicon.ico" alt="一起去看海">
-                <div class="photo-desc">20xx.08.15 夏天的海风，和你</div>
-            </div>
-            <div class="photo-item">
-                <img src="https://lf-cdn.coze.cn/obj/coze-web-sdk/101/favicon.ico" alt="新年快乐快乐">
-                <div class="photo-desc">20xx.12.25 第一次一起过跨年</div>
-            </div>
-             <div class="photo-item">
-                <img src="https://lf-cdn.coze.cn/obj/coze-web-sdk/101/favicon.ico" alt="情人节">
-                <div class="photo-desc">未来，还有无数个情人节</div>
-            </div>
+    <div class="glass-card header-card">
+        <h1>我们的浪漫小屋 <span style="color:var(--accent-pink)">❤</span></h1>
+        <div class="timer-section" onclick="showDatePicker()">
+            <div style="font-size: 14px; color: #999;">点击下方数字修改纪念日</div>
+            <div class="timer-days" id="display-days">0</div>
+            <div style="color: var(--sub-pink);">天啦</div>
+            <input type="date" id="date-input" onchange="saveDate(this.value)">
         </div>
     </div>
 
-    <div class="records-section">
-        <h2 class="section-title">✍ 浪漫手账</h2>
-        <div class="record-card glass-card">
-            <div class="record-item">
-                <div class="date-tag">20xx-01-01</div>
-                <div class="content-text">今天一起xx。</div>
-            </div>
-            <div class="record-item">
-                <div class="date-tag">20xx-01-01</div>
-                <div class="content-text">。</div>
-            </div>
-            <div class="record-item">
-                <div class="date-tag">20xx-01-01</div>
-                <div class="content-text">新年第一天，我们一起看了跨年烟火，许下了关于未来的愿望。</div>
-            </div>
+    <div class="glass-card">
+        <h2 style="color: var(--accent-pink); font-size: 18px;">✍ 记下一件浪漫小事</h2>
+        <div class="input-group">
+            <textarea id="note-content" placeholder="今天发生了什么好事？"></textarea>
+            <button class="save-btn" onclick="addNote()">存入浪漫手账</button>
         </div>
+        <div class="record-list" id="note-list">
+            </div>
     </div>
 
     <script>
-        function countDays() {
-            // 【非常重要】：把这里改为他们恋爱开始的那一天！格式: 年-月-日
-            const startDate = new Date('2021-01-01'); 
+        // --- 纪念日逻辑 ---
+        function updateDisplay(startDateStr) {
+            const start = new Date(startDateStr);
             const today = new Date();
-            const diffTime = Math.abs(today - startDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            document.getElementById('love-timer').innerHTML = diffDays;
+            const diff = Math.ceil(Math.abs(today - start) / (1000 * 60 * 60 * 24));
+            document.getElementById('display-days').innerText = diff;
         }
-        countDays(); // 页面加载时自动计算
+
+        function showDatePicker() { document.getElementById('date-input').style.display = 'inline-block'; }
+
+        function saveDate(val) {
+            localStorage.setItem('loveStartDate', val);
+            updateDisplay(val);
+            document.getElementById('date-input').style.display = 'none';
+        }
+
+        // --- 手账逻辑 ---
+        function addNote() {
+            const content = document.getElementById('note-content').value;
+            if(!content) return;
+            const notes = JSON.parse(localStorage.getItem('loveNotes') || '[]');
+            notes.unshift({ content, date: new Date().toLocaleString() });
+            localStorage.setItem('loveNotes', JSON.stringify(notes));
+            document.getElementById('note-content').value = '';
+            renderNotes();
+        }
+
+        function renderNotes() {
+            const notes = JSON.parse(localStorage.getItem('loveNotes') || '[]');
+            const list = document.getElementById('note-list');
+            list.innerHTML = notes.map((n, i) => `
+                <div class="record-item">
+                    <span class="delete-btn" onclick="deleteNote(${i})">删除</span>
+                    <div class="record-date">${n.date}</div>
+                    <div style="margin-top:5px;">${n.content}</div>
+                </div>
+            `).join('');
+        }
+
+        function deleteNote(index) {
+            const notes = JSON.parse(localStorage.getItem('loveNotes') || '[]');
+            notes.splice(index, 1);
+            localStorage.setItem('loveNotes', JSON.stringify(notes));
+            renderNotes();
+        }
+
+        // 初始化加载
+        const savedDate = localStorage.getItem('loveStartDate') || '2024-01-01';
+        updateDisplay(savedDate);
+        renderNotes();
     </script>
 
-    <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.19/libs/cn/index.js"></script>
-    <script>
-      new CozeWebSDK.WebChatClient({
-        config: {
-          bot_id: '7619275579711602739', // 你的新 Bot ID
-        },
-        componentProps: {
-          title: '耳朵元元小助手', // 聊天框标题
-        },
-        auth: {
-          type: 'token',
-          // 使用你提供的真实 Token
-          token: 'pat_y1IfS57nDed1AttgDNo7xcuyNgbd1Gce9dooDmA6iZklVa12fDYg0sDMmE4GEwYM',
-          onRefreshToken: function () {
-            return 'pat_y1IfS57nDed1AttgDNo7xcuyNgbd1Gce9dooDmA6iZklVa12fDYg0sDMmE4GEwYM'
-          }
-        }
-      });
-    </script>
-
-</body>
+    </body>
 </html>
